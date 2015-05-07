@@ -1,0 +1,15 @@
+# Site settings
+title: Alec On Software
+email: alec at mailc dot net
+description: > # this means to ignore newlines until "baseurl:"
+  I'm Alec Hollingsworth.  I am a software developer in Portland, OR.  I push code to GitHub and write about it here.  I like JavaScript, web applications, guitar, and everything lisp.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://alecroy.me" # the base hostname & protocol for your site
+# twitter_username: 
+github_username:  alecroy
+
+# Build settings
+markdown: kramdown
+
+sass:
+  sass_dir: _sass
