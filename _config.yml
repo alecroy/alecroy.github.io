@@ -9,7 +9,10 @@ url: "http://alecroy.me" # the base hostname & protocol for your site
 github_username:  alecroy
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+  extensions: ["fenced_code_blocks", "tables"]
+#  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 
 sass:
   sass_dir: _sass
