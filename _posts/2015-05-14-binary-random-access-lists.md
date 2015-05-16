@@ -16,7 +16,7 @@ I wrote an implementation of this data structure in JavaScript and posted it on 
 1.  The only other prevalent reference to 'forest' in CS involves [spanning trees][wiki-spanning-tree], a completely separate topic.
 1.  I can't help calling them forests, and I don't know how to say 'forest' in anything but English.
 
-# The Idea
+## The Idea
 
 Hopefully you're already familiar with binary trees and linked lists.  Binary trees, of which you usually only have one, can contain many elements: 1 tree of size N.  Here's 1 tree of size 6.
 
@@ -50,7 +50,7 @@ If you think about it, the number `6` is written `110` in binary.  One `4`, one 
 
 Any number can be written in binary, so any number of elements can be stored in a binary random access list.
 
-## Build me up
+### Build me up
 
 Adding an element to the list is just like adding `1` to a binary number: the `1` element carries other `1`s up until it finds an empty slot.  Unlike binary trees, where you can insert elements into the middle, we'll just be inserting to the *front* of the list (*cons*ing).  Let's add an element to the list of 6.
 
@@ -100,7 +100,7 @@ That was easy.  Adding `1` to `110` would naturally lead to `111`.  Let's add an
 
 Adding 1 to 7 (`111`) makes 8 (`1000`).
 
-## Break me down
+### Break me down
 
 Just like consing, we'll only remove elements from the *front* of the list.  This is pretty easy: in the best case, there's a single tree of size 1 just waiting to be plucked.
 
@@ -120,7 +120,7 @@ In the worst case, we take have to subtract from a tree of size N.  This is like
   X   A +   + +   + +   +                   +   + +   +
 ~~~
 
-## Indexing
+### Indexing
 
 Random access lists, given the name, should allow random access.  To look up a given index, we have to first figure out which tree it will be in.  A tree of size `S` will store indices `0 .. S-1`.  There are a logarithmic number of trees (as many as a binary number is wide), so just *finding* the right tree in a BForest of N elements will take O(log N) time.  The biggest tree we find could be as big as the entire forest (a forest of a single tree, like `N=8`), so finding the element in the correct tree will also take up to O(log N) time.
 
@@ -130,7 +130,7 @@ Taking this a bit further, notice that the `C` tree above has 3 levels: 1 with 4
 
 Adding the 2 operations (finding the tree, walking the tree), an index operation takes twice logarithmic time.  Due to math not worth talking about here, 2 \* O(log N) = O(log N); the index operation takes O(log N) time.
 
-## Updating
+### Updating
 
 Updating is basically the same as indexing, except we want to replace one element with another.  In some languages, you'd just set `element.value = newValue;`, but this is a *purely functional* data structure.  Once you create a BForest, it will not change through operations like `head`, `tail`, `cons`, `prepend`, `index`, or `update`.  These operations will return a new forest (or a single element) and leave the original forest intact.
 
@@ -164,15 +164,15 @@ Likewise for `A`, we replace `A` with `P` and copy its structure, pointing to `Q
 
 There's very little 'work' we have to do in each step, but there are as many steps as the tree is tall.  Plus it takes time to find the right tree.  So like index, the update operation takes O(log N) time.
 
-# The Code
+## The Code
 
 I'll step through the code I wrote (as of this morning).  It's only [137 sloc][bforest-js], though it could probably be a lot shorter.  I wrote it in vanilla JavaScript without libraries (though lodash might've been nice).
 
-## Laying out the data
+### Laying out the data
 
 A BForest is essentially an array.  In that array are trees.  Trees are hashes with 3 or 4 fields: `size`, `left`, `right`, and optionally a `value`.  The `left` and `right` fields should be trees, themselves (or null).  A tree of size 1 looks like `{size: 1, value: 123, left: null, right; null}`.  Branches look like `{size: somePowerOfTwo, left: leafOrBranch, right: leafOrBranch}`.
 
-## The Constructor
+### The Constructor
 
 All bforests are constructed similarly.  `new BForest()` will create an empty forest.  For convenience, `new BForest(array)` will create a new forest and preload the array into it.  It is equivalent to `new BForest().prepend(array)`.
 
@@ -193,7 +193,7 @@ BForest.prototype.isEmpty = function() {
 };
 ~~~
 
-## Head & Tail
+### Head & Tail
 
 The head of a BForest will be the left-most element on the left-most tree.  It doesn't make much sense to call head on an empty forest, so I return `null` in that case.
 
@@ -234,7 +234,7 @@ BForest.prototype.tail = function() {
 };
 ~~~
 
-## Cons
+### Cons
 
 Cons is the opposite of tail.  This is where we 'add 1'.  We get away easy if the forest doesn't have any trees of size 1.  In that case, we just add a tree of size 1 to the forest.
 
@@ -260,7 +260,7 @@ BForest.prototype.cons = function(element) {
 
 If I bubble up all the trees in the forest, I end up with just one tree, the new one.  That's those last 2 lines.
 
-## Index & Update
+### Index & Update
 
 Indexing works in two steps: finding the right tree, then finding the element within that tree.  The important thing to remember is that since a BForest is just an array of trees, any slice of that array also represents a valid BForest.  For example, if `(1 2 4)` represents a BForest of 7 elements, `(2 4)` has 6 elements, and `(4)` has 4.  The only difference is that these suffixes are smaller in size, so indices need to be adjusted down as you progress.  For example, indices 0-6 are valid on `(1 2 4)`, but only 0-3 are valid on `(4)`.  So accessing index 6 of `(1 2 4)` is the same as accessing index 5 of `(2 4)` and index 3 of `(4)`.
 
@@ -326,7 +326,7 @@ BForest.prototype.update = function(index, value) {
 
 As you can see on this last line, out-of-bounds updates do nothing.
 
-## Iter & Map
+### Iter & Map
 
 What good is an array-like data structure if you can't iterate over it?  Not much.  So I wrote two functions for doing this: 
 
@@ -376,7 +376,7 @@ BForest.prototype.map = function(fn) {
 };
 ~~~
 
-## Pretty printing
+### Pretty printing
 
 I sure love me some properly formatted output.  I added a toString() method that prints a BForest just like an array.  You'll have to see the tests (test/bforest_test.js) to see more.
 
@@ -388,7 +388,7 @@ BForest.prototype.toString = function() {
 };
 ~~~
 
-# Finis
+## Finis
 
 That's it!  Thanks for reading this far down.  I'll soon get started on the skew-binary version, because they should be a bit faster.  Happy hacking.
 
