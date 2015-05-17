@@ -6,7 +6,7 @@ date: 2015-05-17 12:00
 
 This past Saturday I learned a lot more about alternatives to Jekyll.  A local developer (thanks, Chris!) pointed me towards [assemble.io][asmbl], an all-Javascript solution.  That really piqued my interest, so I downloaded Assemble.  I think Jekyll is great, but adding a JS parser/generator tool to my toolbag would be worth it.
 
-While I waited for an unusually lengthy `npm install` I stumbled upon [Hexo][hexo] and [Metalsmith][metal], among [others][st-gen].  I might stick to Assemble, but I'll admit it was a bit alarming to set up a few examples and see ~300MB of disk space gone.  As long as I'm considering ditching Jekyll, why not shop around?
+While I waited for an unusually lengthy `npm install` I stumbled upon [Hexo][hexo] and [Metalsmith][metal], among [others][st-gen].  I might stick to Assemble, but I'll admit it seemed like it might take a while to set up.  As long as I'm considering ditching Jekyll, why not shop around?
 
 ## A challenger appears
 
@@ -113,7 +113,7 @@ That's pretty much it.  It's got 3 helper functions and 4 required modules.  It 
 
 ## Finis
 
-Hopefully I didn't get too much wrong.  I just found this tool today, so surely my views are subject to change.  Thanks to [Mike Valstar][valstar-home] for inspiring me to read the source,  and to [Segment][segment] for writing such a nice little piece of JavaScript.  Happy hacking.
+Hopefully I didn't get too much wrong.  I just found this tool today, so surely my views are subject to change.  I feel like I've got a much better handle on it now that I've read it.  Thanks to [Mike Valstar][valstar-home] for inspiring me to read the source,  and to [Segment][segment] for writing such a nice little piece of JavaScript.  Happy hacking.
 
 [st-gen]: http://staticgen.com
 [asmbl]: http://assemble.io
