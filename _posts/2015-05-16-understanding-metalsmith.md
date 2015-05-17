@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Understanding Metalsmith"
-date: 2015-05-17 12:00
+date: 2015-05-16 23:40
 ---
 
-This past Saturday I learned a lot more about alternatives to Jekyll.  A local developer (thanks, Chris!) pointed me towards [assemble.io][asmbl], an all-Javascript solution.  That really piqued my interest, so I downloaded Assemble.  I think Jekyll is great, but adding a JS parser/generator tool to my toolbag would be worth it.
+Today, I learned a lot more about alternatives to Jekyll.  A local developer (thanks, Chris!) pointed me towards [assemble.io][asmbl], an all-Javascript solution.  That really piqued my interest, so I downloaded Assemble.  I think Jekyll is great, but adding a JS parser/generator tool to my toolbag would be worth it.
 
 While I waited for an unusually lengthy `npm install` I stumbled upon [Hexo][hexo] and [Metalsmith][metal], among [others][st-gen].  I might stick to Assemble, but I'll admit it seemed like it might take a while to set up.  As long as I'm considering ditching Jekyll, why not shop around?
 
