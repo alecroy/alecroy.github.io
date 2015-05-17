@@ -40,7 +40,7 @@ The DIY theming seemed a bit spartan, but it does give you some freedom.  It's l
 
 I found a series of good blog [posts by Mike Valstar][valstar] discussing Metalsmith.  He mentioned looking at the source code as a good way to understand what it did.  I didn't feel like I *got it* from just reading the documentation, so I thought I'd give it a try.
 
-Usually, diving into the source just to read it is not a rewarding experience.  I hate getting lost in 2000-line files.  I could not have been more wrong about Metalsmith.  I [cloned their repository][metal-gh] and looked at their `index.js`.  Like a lot of projects, it was just a thin wrapper over the `lib/` directory.
+Diving into the source just to read it is not always a rewarding experience.  Not so! with Metalsmith.  I [cloned their repository][metal-gh] and looked at their `index.js`.  Like a lot of projects, it was just a thin wrapper over the `lib/` directory.
 
 ~~~javascript
 module.exports = require('./lib');
@@ -54,6 +54,49 @@ Metalsmith has 2 interfaces: the CLI generator tool, and the JavaScript module. 
 
 #### The Library
 
+`lib/index.js` has 14 required modules, 16 methods, and 1 constructor.  The constructor is written so you can instantiate it without `new`.
+
+~~~javascript
+var ms = Metalsmith(directory)...
+~~~
+
+I won't bore you with the required modules.  Of the 16 methods, 9 are simple getter/setters.
+
+1.  `.clean(..)` touches `this._clean`
+1.  `.concurrency(..)` touches `this._concurrency`
+1.  `.destination(..)` touches `this._destination`
+1.  `.directory(..)` touches `this._directory`
+1.  `.frontmatter(..)` touches `this._frontmatter`
+1.  `.ignore(..)` touches/appends to `this.ignores`
+1.  `.metadata(..)` touches `this._metadata`
+1.  `.source(..)` touches `this._source`
+1.  `.use(..)` appends to `this.plugins`
+
+That leaves 7 other methods.
+
+1.  `.build()` builds files with the current settings and writes them into the destination directory
+1.  `.path(filenames..)` resolves pathnames with respect to the root directory
+1.  `.read(directory)` reads a directory (the source directory, by default) and returns a dictionary of files
+1.  `.readFile(filename)` resolves a filename, reads it, and returns a hash `{ contents: <Buffer..> }`
+1.  `.run(files, plugins)` runs `files` through `plugins` and returns a dictionary of files
+1.  `.write(files, directory)` writes a dictionary of files to a directory (the source directory, by default)
+1.  `.writeFile(filename, data)` resolves a filename and writes a data hash `{ contents: <Buffer..> }` to it
+
+That's pretty much all there is to it.  There are still lots of middleware plugins for me to learn, but a pattern does seem to emerge.  It's nice when things are consistent.
+
+~~~javascript
+module.exports = plugin;
+
+function plugin(opts){
+  ...
+  return function(files, metalsmith, done) {
+    ...
+      done();
+    ...
+  };
+}
+~~~
+
 #### The Executable
 
 Later I found some more code (just 163 lines) in `bin/metalsmith`.  Again, I'd rather do things in JS than use CLI tools by hand, but I took a look anyway.  It seemed a bit less complex than `lib/index.js`.  The executable does just a few things:
@@ -66,11 +109,17 @@ Later I found some more code (just 163 lines) in `bin/metalsmith`.  Again, I'd r
 1.  Loads the plugins, one by one
 1.  Runs the build!
 
-That's pretty much it.  It's got 3 helper functions and 4 required modules.  It uses `chalk` to color the terminal output, `commander` to make the CLI tool, and 2 methods from the native `fs` and `path` modules.
+That's pretty much it.  It's got 3 helper functions and 4 required modules.  It uses `chalk` to color the terminal output, `commander` to make the CLI tool, and 2 methods from the native `fs` and `path` modules.  The helper functions, `fatal(msg, stack)`, `log(msg)`, and `normalize(obj)` aren't too lengthy.
+
+## Finis
+
+Hopefully I didn't get too much wrong.  I just found this tool today, so surely my views are subject to change.  Thanks to [Mike Valstar][valstar-home] for inspiring me to read the source,  and to [Segment][segment] for writing such a nice little piece of JavaScript.  Happy hacking.
 
 [st-gen]: http://staticgen.com
 [asmbl]: http://assemble.io
 [hexo]: http://hexo.io
 [metal]: http://metalsmith.io
 [metal-gh]: https://github.com/segmentio/metalsmith/
-[valstar]: http://mikevalstar.com/post/metalsmith-templating/
+[valstar]: http://mikevalstar.com/post/getting-started/
+[valstar-home]: http://mikevalstar.com/
+[segment]: https://segment.com/
