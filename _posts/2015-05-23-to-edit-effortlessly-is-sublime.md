@@ -8,7 +8,7 @@ I use Sublime Text 2 quite a bit.  In this post, I'll talk about the few things 
 
 ### I was born on a Friday..
 
-I used Notepad growing up as well as Visual Studio 1.0.  Dev-C++ was amazing when I found that, but I'd say GVim was the first editor I used.  It was clearly built for *just editing*.  I found vim totally refreshing, and had a nice little `.vimrc` with leader keys and aliases and everything.  Then I soon switched over to the Dvorak keyboard layout, and editing in vim became very unnatural (hjkl get separated, for instance).  I stuck to Eclipse for a while until one of my professors used Emacs in class one day.  I was pretty impressed to say the least, especially with the REPL interaction (via `tuareg-mode`).  Enamored, I scraped by on the bare minimum of keybindings (so much `C-g`) until I got comfortable (`C-h a` makes everything better).
+I used Notepad growing up.  Later I used Visual C++ 1.0 (not the Studio), [like so][vsc].  Dev-C++ was amazing when I found that, but I'd say GVim was the first real editor I used.  It was clearly built for *just editing*.  I found vim totally refreshing, and had a nice little `.vimrc` with leader keys and remaps and everything.  Soon after that, I switched over to the Dvorak keyboard layout and editing in vim became very unnatural (hjkl get separated, for instance).  I stuck to Eclipse for a while until one of my professors used Emacs in class one day.  I was pretty impressed to say the least, especially with the REPL interaction (via `tuareg-mode`).  Enamored, I scraped by on the bare minimum of keybindings (so much `C-g`) until I got comfortable (`C-h a` makes everything better).
 
 I'll admit, I miss one thing about Emacs above all else: *indentation*.  You can smack the `TAB` key all day, and your source code only gets prettier (in most languages).  Most editors take a more literal approach (`\t`) that's less useful.
 
@@ -75,6 +75,7 @@ There are probably 10 great color schemes for every great font, too, so I'll jus
 
 That's all for this post.  Again, I'm not even really a power user, just your average editor.  I don't even use Sublime Text 3, just the 2.  You should probably check out more authoritative sources if you want to get the most out of Sublime.  Happy hacking.
 
+[vsc]: http://www.betaarchive.co.uk/imageupload/1266131097.or.195465.png
 [cprime]: http://quoteunquoteapps.com/courierprime/
 [nk57]: http://typodermicfonts.com/nk57-monospace/
 [osxkeys]: https://support.apple.com/kb/PH18422
