@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "SForest, another random access list"
-date: 2015-05-24 12:00
+date: 2015-05-25 15:57
 ---
 In [a recent post][skewpost], I discussed the mechanics underlying skew-binary random access lists.  In this post, I'll walk through some code I've written to bring the ideas to life with JavaScript.
 
