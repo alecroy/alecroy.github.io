@@ -5,8 +5,22 @@ body {
   font-family: 'Fira Sans', sans-serif;
   font-weight: 400;
 }
+@font-face {
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/FiraSans-Regular.woff2') format('woff2'),
+       url('/fonts/FiraSans-Regular.woff') format('woff');
+}
 
 code {
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'Office Code Pro', monospace;
   font-weight: 400;
+}
+@font-face {
+  font-family: 'Office Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/OfficeCodePro-Regular.woff2') format('woff2'),
+       url('/fonts/OfficeCodePro-Regular.woff') format('woff');
 }
