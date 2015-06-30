@@ -43,7 +43,7 @@ touch www/index.html
     └── [   0 Jun 29 17:52]  index.html
 ~~~
 
-There's a very good starter set of SASS files we'll use: Bourbon, Neat, & Bitters.  Also, we'll install a common CSS reset: normalize.css.
+There's a very good starter set of SASS files we'll use: Bourbon, Neat, & Bitters.  You'll need to install these as Ruby Gems: `gem install bourbon neat bitters`.  Also, we'll install a common CSS reset: normalize.css.
 
 ~~~bash
 (cd src/stylesheets; bourbon install)
