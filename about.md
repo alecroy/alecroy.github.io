@@ -4,4 +4,4 @@ title: About
 permalink: /about/
 ---
 
-I'm Alec Hollingsworth.  I like writing software, playing guitar, reading documentation, and listening to Jimi Hendrix.  I grew up in Northern Virginia, graduated college in upstate New York, then went to work for the Air Force.  I joined Code Fellows here in Portland, OR and have been studying and learning JavaScript every day since.
+I'm Alec Hollingsworth.  I like writing software, playing guitar, reading documentation, and baking cakes and what not.  I grew up in Northern Virginia, went to college in upstate New York, and now live in the Southeast.
