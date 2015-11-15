@@ -19,7 +19,7 @@ chunks(L, _N, Out) -> [L | Out].
 And in with the new shiny shiny:
 
 ~~~Erlang
-chunks(List, ChunkSize) when length(List) < ChunkSize -> [List];
+chunks(List, ChunkSize) when length(List) =< ChunkSize -> [List];
 chunks(List, ChunkSize) ->
     {Chunk, Rest} = lists:split(ChunkSize, List),
     [Chunk | chunks(Rest, ChunkSize)].
