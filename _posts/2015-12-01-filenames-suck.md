@@ -26,7 +26,7 @@ For what it's worth, here's what a couple other reasonable filesystems allow (ac
 | Filesystem | Filename restriction |
 | ---------- | -------------------- |
 | [HFS+][h] | 255 UTF-16 units, no restrictions (may contain ```\0```!?). |
-| [NTFS][n] | 255 UTF-16 units, no ```/``` or ```\0```.  On Win32, none of ```\ : * ? " < > |"```. |
+| [NTFS][n] | 255 UTF-16 units, no ```/``` or ```\0```.  On Win32, none of <code>\ : * ? " < > &#124; "</code> . |
 | [ZFS][z] | 255 ASCII characters, no ```\0```. |
 
 I really wonder how you'd handle a filename with a ```\0``` in it.  Not even trusty ```find ... -print0 | xargs -0 ...``` would get that right.  Even writing in C wouldn't help (as long as you rely on C-strings).  More on language choice:  there's a good quote by Wittgenstein: __The limits of my language mean the limits of my world__.  When your language is bash, you tend to stay away from nasty filenames with spaces and newlines.  When your language is C, you tend to stay away from strings containing multiple ```\0``` bytes.  Don't take the word *limit* too seriously; conventions (like null-terminated strings in C, Unicode strings in Python, et cetera) are usually as important as limits.
