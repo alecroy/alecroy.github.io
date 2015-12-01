@@ -24,7 +24,7 @@ There's a long dwheeler essay on [Fixing POSIX Filenames][dw-posix] that sums up
 For what it's worth, here's what a couple other reasonable filesystems allow (according to [Wikipedia][w]):
 
 | Filesystem | Filename restriction |
-| - | - |
+| ---------- | -------------------- |
 | [HFS+][h] | 255 UTF-16 units, no restrictions (may contain ```\0```!?). |
 | [NTFS][n] | 255 UTF-16 units, no ```/``` or ```\0```.  On Win32, none of ```\ : * ? " < > |"```. |
 | [ZFS][z] | 255 ASCII characters, no ```\0```. |
