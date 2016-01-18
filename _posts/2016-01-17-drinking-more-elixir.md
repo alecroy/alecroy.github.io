@@ -308,13 +308,13 @@ Elixir has *really good* macro support.  The ASTs it generates are not bad *at a
 
 ~~~Elixir
 iex(1)> quote do Enum.map %{3 => 10}, fn {k, v} -> {k*2, v/2} end end
-{{:., [], [{:__aliases__, [alias: false], [:Enum]}, :map]}, [],
+{ {:., [], [{:__aliases__, [alias: false], [:Enum]}, :map]}, [],
  [{:%{}, [], [{3, 10}]},
   {:fn, [],
    [{:->, [],
-     [[{{:k, [], Elixir}, {:v, [], Elixir}}],
-      {{:*, [context: Elixir, import: Kernel], [{:k, [], Elixir}, 2]},
-       {:/, [context: Elixir, import: Kernel], [{:v, [], Elixir}, 2]}}]}]}]}
+     [[{ {:k, [], Elixir}, {:v, [], Elixir}}],
+      { {:*, [context: Elixir, import: Kernel], [{:k, [], Elixir}, 2]},
+        {:/, [context: Elixir, import: Kernel], [{:v, [], Elixir}, 2]}}]}]}]}
 ~~~
 
 That's not mind-bending.  Maybe a bit unintuitive.
