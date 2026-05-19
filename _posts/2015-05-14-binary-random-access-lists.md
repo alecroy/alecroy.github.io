@@ -1,12 +1,15 @@
 ---
 layout: post
-date: 2015-05-14 21:23
+date: 2015-05-14 21:23:00 -0800 PST
 title: "BForest, a binary random access list"
+categories: Software
 ---
 
-This is a post on a data structure, the binary random access list.  Not the best data structure in the world, but close to one of my favorites.  I read about them a couple years ago in a [paper][pfral] by Chris Okasaki.  I recently picked up his book [Purely Functional Data Structures][pfds] at [Powell's Books][powells], so I've been wanting to write them up in JavaScript.  There's more than one kind of random access list mentioned in the paper; this one is the simplest.
+This is a post on a data structure, the binary random access list.  Not the best data structure in the world, but close to one of my favorites.
 
-I wrote an implementation of this data structure in JavaScript and posted it on GitHub.  I called the library [BForest][gh-bf] for a couple reasons:
+I read about them a couple years ago in a [paper][pfral] by Chris Okasaki.  I recently picked up his book [Purely Functional Data Structures][pfds] at [Powell's Books][powells], so I've been wanting to write them up in JavaScript.  There's more than one kind of random access list mentioned in the paper; this one is the simplest.
+
+I wrote an implementation of this data structure in JavaScript and posted it on GitHub.  I called the library BForest for a couple reasons:
 
 1.  It's a collection of trees, binary trees, of various sizes.  A *forest*, so to speak.
 1.  binary-random-access-list is a pain to say.
@@ -104,7 +107,7 @@ Adding 1 to 7 (`111`) makes 8 (`1000`).
 
 Just like consing, we'll only remove elements from the *front* of the list.  This is pretty easy: in the best case, there's a single tree of size 1 just waiting to be plucked.
 
-~~~bash
+~~~
 ( +  .. )  ->  ( .. )
 ~~~
 
@@ -126,7 +129,7 @@ Random access lists, given the name, should allow random access.  To look up a g
 
 If that part doesn't make sense, let me explain it a little more intuitively.  When you write down a number in any base, it has a certain *width*.  100,000 is a *six digit figure*, as the saying goes.  It's six digits wide in base 10.  When you write 7 in binary as `111`, it's 3 digits wide.  This width is the *logarithm*.  A BForest of 7 elements will have 3 trees like we saw above, so it might take as long to find the last tree as the number 7 is wide.
 
-Taking this a bit further, notice that the `C` tree above has 3 levels: 1 with 4 elements (the ones holding the values), 1 with 2 elements (branches), and 1 with 1 element (the `C`).  Since it'll take 3 steps just to get to the bottom, it takes as long to walk down the largest tree as the number 7 is wide.
+Taking this a bit further, notice that the `C` tree above has 3 levels: 1 with 4 elements (the ones holding the values), 1 with 2 elements (branches), and 1 with 1 element (the `C`).  Since it'll take 3 steps just to get to the bottom, it takes as long to walk down the largest tree (of 7) as the number 7 is wide.
 
 Adding the 2 operations (finding the tree, walking the tree), an index operation takes twice logarithmic time.  Due to math not worth talking about here, 2 \* O(log N) = O(log N); the index operation takes O(log N) time.
 
@@ -166,7 +169,7 @@ There's very little 'work' we have to do in each step, but there are as many ste
 
 ## The Code
 
-I'll step through the code I wrote (as of this morning).  It's only [137 sloc][bforest-js], though it could probably be a lot shorter.  I wrote it in vanilla JavaScript without libraries (though lodash might've been nice).
+I'll step through the code I wrote (as of this morning).  It's only 137 sloc, though it could probably be a lot shorter.  I wrote it in vanilla JavaScript without libraries (though lodash might've been nice).
 
 ### Laying out the data
 
@@ -398,5 +401,3 @@ That's it!  Thanks for reading this far down.  I'll soon get started on the skew
 [wiki-binary]: https://en.wikipedia.org/wiki/Binary_number
 [wiki-skew]: https://en.wikipedia.org/wiki/Skew_binary_number_system
 [wiki-spanning-tree]: https://en.wikipedia.org/wiki/Spanning_tree#Spanning_forests
-[bforest-js]: https://github.com/alecroy/bforest/blob/37b18cacc947b6a77329703321c8a42a3ddf5aaf/bforest.js
-[gh-bf]: https://github.com/alecroy/bforest

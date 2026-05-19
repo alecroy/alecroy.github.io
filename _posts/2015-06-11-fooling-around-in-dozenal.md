@@ -1,7 +1,10 @@
 ---
 layout: post
 title: "Fooling around in dozenal"
-date: 2015-06-11 19:49
+date: 2015-06-11 19:49:00 -0700 PDT
+categories: Software
+params:
+  math: true
 ---
 
 I wrote a couple small modules for fun recently and wanted to mention them here briefly.  I wrote one to calculate ranges of numbers and the other to convert numbers to dozenal, or duodecimal (base-12).
@@ -24,6 +27,7 @@ That's it!  You can also use negative integers, but I think the *natural numbers
 This one's pretty much what you'd expect.  Numbers go in one side, strings come out the other.  Base-12 strings, that is.
 
 `dozenal.print(12)` gives you `"10"`
+
 `dozenal.print(10)` gives you `"T"`
 
 That might throw you.  I didn't use the familiar letters `A`-`F` from hexadecimal to represent ten and eleven, but instead used `T` and `E`.
@@ -47,7 +51,7 @@ I find this hilarious.  On some level, it's completely useless!  But it's just s
 
 According to [this Numberphile video][numberphile] (my authoritative source on all things dozenal), you don't say "ten", "eleven", "twelve": those are all very *ten-centric* words.  *Tennist*, if you will.  Instead you say *dec*, *el*, and *doh*.  Ideally you'd say them with a British accent, but that's optional.
 
-Going further, `100` is called a *gro*, like a single gross (= 12<sup>2</sup> = 144), and `1000` is a *mo* (= 12<sup>3</sup> = 1,728).
+Going further, `100` is called a *gro*, like a single gross ($12^2 = 144$), and `1000` is a *mo* ($12^3 = 1,728$).
 
 ~~~javascript
 > dozenal.say(1048576)
@@ -70,7 +74,7 @@ In case you're dubious, this adds up:
 
 I'll be honest: I kind of just made up the higher powers.  He goes up to a *gro* and a *mo* in the video, but past that I just made up names.  There *are* names out there, but nobody's really agreed upon any single set, so whatever.  Fork and pull request if it really bothers you.
 
-One thing that did bother me was the way we label the higher powers of 10.  A *tri*llion is 10<sup>12</sup> and a *quad*rillion is 10<sup>15</sup>.  There's nothing remotely *quad*-ish about 10<sup>15</sup>.  15 isn't ever going to be divisible by 4.  And if you look at a trillion, it's actually got *four* groups of digits right of the leading 1.
+One thing that did bother me was the way we label the higher powers of 10.  A *tri*llion is $10^{12}$ and a *quad*rillion is $10^{15}$.  There's nothing remotely *quad*-ish about $10^{15}$.  15 isn't ever going to be divisible by 4.  And if you look at a trillion, it's actually got *four* groups of digits right of the leading 1.
 
 ~~~
 1,000,000,000,000
@@ -89,7 +93,7 @@ So I broke the rules.  I say that a *tro* should have 3 groups of digits right o
   [ 8916100448256, '1000000000000', 'quadro' ] ]
 ~~~
 
-So a *quadro*, 12<sup>12</sup>, is actually just below nine trillion.  For your information.  Again, if you've got better names, fork & pull request!
+So a *quadro*, $12^{12}$, is actually just below nine trillion.  For your information.  Again, if you've got better names, fork & pull request!
 
 ## Finis
 

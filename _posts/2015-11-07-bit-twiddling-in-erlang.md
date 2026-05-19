@@ -1,10 +1,9 @@
 ---
 layout: post
 title: "Bit twiddling in Erlang"
-date: 2015-11-07 19:38
+date: 2015-11-07 19:38:00 -0500 EST
+categories: Software
 ---
-
-It's been a long few months.  Lots of traveling, interviewing, moving, & working.  Stressful.  I've been busy, to say the least.
 
 I'm still learning Erlang.  It's one of my favorite languages to write.  I really like the Prolog-esque syntax, the interactive REPL, good [list processing](http://www.erlang.org/doc/man/lists.html), decent documentation, et cetera.  And I'm not even going to mention OTP (or Elixir).
 

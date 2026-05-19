@@ -1,10 +1,13 @@
 ---
 layout: post
 title: "A body-recursive chunks"
-date: 2015-11-14 20:02
+date: 2015-11-14 20:02:00 -0500 EST
+categories: Software
 ---
 
-Real quick: I just wanted to add some closure to the [various implementations]({% post_url 2015-11-09-simple-profiling-in-erlang %}) of a ```chunks``` function I wrote in Erlang a few days ago.  I had pretty much settled on a tail-recursive solution that seemed to work reasonably well enough.  But that was before I became enlightened regarding [body recursion]({% post_url 2015-11-12-recursion-in-erlang %}).  So I rewrote it (now 20% fewer lines, and with more flair ```;)``` ).
+As it turns out, Erlang supports at least one kind of efficient recursion other than tail recursion.
+
+Real quick: I just wanted to add some closure to the various implementations of a ```chunks``` function I wrote in Erlang a few days ago.  I had pretty much settled on a tail-recursive solution that seemed to work reasonably well enough.  But that was before I became enlightened regarding body recursion.  So I rewrote it (now 20% fewer lines, and with more flair ```;)``` ).
 
 Out with the old:
 

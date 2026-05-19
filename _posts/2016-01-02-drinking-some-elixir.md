@@ -1,10 +1,13 @@
 ---
 layout: post
 title: "Drinking some Elixir"
-date: 2016-01-02 20:15
+date: 2016-01-02 20:15:00 -0500 EST
+categories: Software
 ---
 
-I got an Elixir book for Christmas, the one by Dave Thomas.  If you're anything like me (and I know I am), you get a little excited when someone puts a fresh twist on Erlang.
+I got an Elixir book for Christmas, the one by Dave Thomas.
+
+If you're anything like me (and I know I am), you get a little excited when someone puts a fresh twist on Erlang.
 
 It's a bit different from Erlang, in a lot of ways.  Not in bad ways; you don't seem to lose much, and you do seem to gain quite a bit.  Here are just a few things I've noticed:
 

@@ -1,7 +1,8 @@
 ---
 layout: post
 title: "Body & tail recursion in Erlang"
-date: 2015-11-12 20:12
+date: 2015-11-12 20:12:00 -0500 EST
+categories: Software
 ---
 
 Old habits die hard.  Some things can suprise you.

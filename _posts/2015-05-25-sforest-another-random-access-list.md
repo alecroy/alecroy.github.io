@@ -1,13 +1,17 @@
 ---
 layout: post
 title: "SForest, another random access list"
-date: 2015-05-25 15:57
+date: 2015-05-25 15:57:00 -0700 PDT
+categories: Software
+params:
+  math: true
 ---
-In [a recent post][skewpost], I discussed the mechanics underlying skew-binary random access lists.  In this post, I'll walk through some code I've written to bring the ideas to life with JavaScript.
+
+In a recent post, I discussed the mechanics underlying skew-binary random access lists.  In this post, I'll walk through some code I've written to bring the ideas to life with JavaScript.
 
 ## The library
 
-[SForest][sforest] is a purely functional data structure similar to [BForest][bforest].  Both use linked lists of binary trees to provide O(log N) indexing and updating.  SForests improve the runtime of adding & removing elements from the front of the list down to O(1) time.
+SForest is a purely functional data structure similar to BForest.  Both use linked lists of binary trees to provide $O(\log{N})$ indexing and updating.  SForests improve the runtime of adding & removing elements from the front of the list down to $O(1)$ time.
 
 I want to quickly walk through the JavaScript I wrote to make this data structure work.  I wrote the code to be obvious and clear, so it's not quite production-ready yet.  I don't use any libraries or frameworks, just vanilla JavaScript.
 
@@ -66,7 +70,7 @@ SForest.prototype.tail = function() {
 };
 ~~~
 
-Unlike the BForest version that involved walking trees, this looks like it is going to run O(1) as long as `Array.slice(1)` runs in constant time.
+Unlike the BForest version that involved walking trees, this looks like it is going to run $O(1)$ as long as `Array.slice(1)` runs in constant time.
 
 Cons works much the opposite of tail: ideally, I can add a 1-tree out in front if there's not already a pair of same-size trees.  If there is a pair, I combine the pair as left & right branches into a bigger tree, using the new element as root.
 
@@ -97,7 +101,7 @@ I use an `Array.slice(2)` here but that shouldn't keep it from running in O(1) t
 
 ### Prepend
 
-Once `cons` exists, `prepend` comes pretty naturally.  The only non-obvious part is loading the elements *in reverse*.  You want the last element to go in first: to make an SForest from the array `[1, 2, 3]`, you want to build [], 3 cons [], 2 cons 3 cons [], then finally 1 cons 2 cons 3 cons [].
+Once `cons` exists, `prepend` comes pretty naturally.  The only non-obvious part is loading the elements *in reverse*.  Well, I guess that might be obvious.  You want the last element to go in first: to make an SForest from the array `[1, 2, 3]`, you want to build [], 3 cons [], 2 cons 3 cons [], then finally 1 cons 2 cons 3 cons [].
 
 ~~~javascript
 SForest.prototype.prepend = function(array) {
@@ -113,13 +117,13 @@ SForest.prototype.prepend = function(array) {
 };
 ~~~
 
-Since the `cons` operation is O(1), and an N-element array generates N `cons` operations, this should take O(N) time.
+Since the `cons` operation is $O(1)$, and an N-element array generates N `cons` operations, this should take $O(N)$ time.
 
 ### Indexing & Updating
 
 Indexing is where we do the complicated left/right decisions, decreasing our index with each move.  Going left always decreases the index by 1, and going right basically *halves* the index.  Unlike BForests, you can stop early up in the branches (above the leaves), as there are lots of values up there.  Once the index has been decreased to 0, we stop looking.
 
-There are log N trees to search through, then a maximum depth of log N to find the value.  Decrementing the index on each level should take constant time.  In general, doing arithmetic on the tree sizes could take log N time (for truly gargantuan sizes), but for all sizes under 2<sup>64</sup> it should only take a few instructions on most hardware.
+There are $\log{N}$ trees to search through, then a maximum depth of $\log{N}$ to find the value.  Decrementing the index on each level should take constant time.  In general, doing arithmetic on the tree sizes could take $\log{N}$ time (for truly gargantuan sizes), but for all sizes under $2^{64}$ it should only take a few instructions on most hardware.
 
 ~~~javascript
 SForest.prototype.index = function(index) {
@@ -304,6 +308,3 @@ Go right
 
 That's it for today!  If I can clean up the code to production-quality, I will publish it on npm.  Until then, you can grab it from GitHub.  Happy hacking!
 
-[sforest]: https://github.com/alecroy/sforest
-[bforest]: https://github.com/alecroy/bforest
-[skewpost]: http://alecroy.me/2015/05/19/skew-binary-random-access-lists

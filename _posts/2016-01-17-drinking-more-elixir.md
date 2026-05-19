@@ -1,7 +1,10 @@
 ---
 layout: post
 title: "Drinking more Elixir"
-date: 2016-01-17 21:05
+date: 2016-01-17 21:05:00 -0500 EST
+categories: Software
+params:
+  math: true
 ---
 
 I've been reading & writing more Elixir; a few things caught my attention.
@@ -54,7 +57,7 @@ iex(2)> <<1024::little-integer-size(16)>>
 <<0, 4>>
 ~~~
 
-If you want the binary of a big integer, you can either parse the [Erlang external term format](http://www.erlang.org/doc/apps/erts/erl_ext_dist.html) (which is subject to change every 2 releases!), or you can count the number of bytes (say, `n_bytes`) by taking the log<sub>256</sub> of the integer and parse it like any fixed-width binary as `<<big_integer::size(8*n_bytes)>>`.
+If you want the binary of a big integer, you can either parse the [Erlang external term format](http://www.erlang.org/doc/apps/erts/erl_ext_dist.html) (which is subject to change every 2 releases!), or you can count the number of bytes (say, `n_bytes`) by taking the $\log_{256}$ of the integer and parse it like any fixed-width binary as `<<big_integer::size(8*n_bytes)>>`.
 
 ### Sizes & units
 

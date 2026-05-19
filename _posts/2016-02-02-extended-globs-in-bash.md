@@ -1,10 +1,13 @@
 ---
 layout: post
 title: "Extended globs in bash"
-date: 2016-02-02 20:10
+date: 2016-02-02 20:10:00 -0500 EST
+categories: Software
 ---
 
-I learned about extended globbing today.  I wanted to free up some disk space on my tiny macbook, so I ran a scan with [Grand Perspective](https://en.wikipedia.org/wiki/GrandPerspective).  I saw an unusually large file in the git repo for Fira that I cloned (really I just wanted the `.otf` files, but cloning the whole thing seemed easier).  Somewhere in the `Fira` directory lurked a ~300 MB file.  I just wanted to verify that's where it was, nothing fancy.
+I learned about extended globbing today, in bash.
+
+I wanted to free up some disk space on my tiny macbook, so I ran a scan with [Grand Perspective](https://en.wikipedia.org/wiki/GrandPerspective).  I saw an unusually large file in the git repo for Fira that I cloned (really I just wanted the `.otf` files, but cloning the whole thing seemed easier).  Somewhere in the `Fira` directory lurked a ~300 MB file.  I just wanted to verify that's where it was, nothing fancy.
 
 So the goal is: show regular entries (`README.md`) and dotted/hidden entries (`.git`) altogether.
 
@@ -98,6 +101,8 @@ du -hs ./*
 6.1M    ./woff
 4.4M    ./woff2
 ```
+
+Well, that's what I get for not shallow cloning.  My mistake.
 
 This is nice since it excludes the `.` and `..` entries automatically, but I'd rather include those by default and glob them out by hand.  Here's all there is to know about extended globs:
 

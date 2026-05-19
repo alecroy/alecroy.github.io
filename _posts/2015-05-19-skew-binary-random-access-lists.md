@@ -1,12 +1,17 @@
 ---
 layout: post
 title: Skew-binary random access lists
-date: 2015-05-19 19:26
+date: 2015-05-19 19:26:00 -0700 PDT
+categories: Software
+params:
+  math: true
 ---
 
-This is another post on another data structure, the skew-binary random access list.  This is my favorite data structure; I just think it's ingenious.  While standard binary random access lists (which I just call bforests) take O(log N) time for nearly every operation, a subtle change to the underlying numerical representation can lower the bound for `cons`, `head`, and `tail` to O(1) time.  Not bad.
+This is another post on another data structure, the skew-binary random access list.  This is perhaps my favorite data structure; I just think it's ingenious.
 
-Like a lot of programmers/math nerds, I've known about binary numbers for a long time.  Modern computers are built on this most simple number system.  They more than make up for their simplicity in their speed, like a 2-stroke engine running at a billion RPMs.  [Skew-binary numbers][wiki-sb], on the other hand, are a bit *strange*.  I had not heard of them before reading Chris Okasaki's [paper][pfral].  Why you would want to build a data structure on them was beyond me.  Soon, I began to appreciate them.
+While standard binary random access lists (which I just call bforests) take $O(\log{N})$ time for nearly every operation, a subtle change to the underlying numerical representation can lower the bound for `cons`, `head`, and `tail` to $O(1)$ time.  Not bad.
+
+Like a lot of programmers/math nerds, I've known about binary numbers for a long time.  Modern computers are built on this most-simple number system.  They more than make up for their simplicity in their speed, like a 2-stroke engine running at a billion RPMs.  [Skew-binary numbers][wiki-sb], on the other hand, are a bit *strange*.  I had not heard of them before reading Chris Okasaki's [paper][pfral].  Why you would want to build a data structure on them was beyond me.  Soon, I began to appreciate them.
 
 ## A slight detour through a bforest
 
@@ -21,11 +26,11 @@ There's something about adding `1` to a binary number that's just a drag.  Try d
  1000000
 ~~~
 
-This hits you right in the face when you try to `cons` something onto the front of a bforest.  What seems like *adding just a grain of sand* ends up taking forever  (where forever = O(log N) time).  Adding a `1` on the low side 'bubbles' up all the way to the top.
+This hits you right in the face when you try to `cons` something onto the front of a bforest.  What seems like *adding just a grain of sand* ends up taking forever  (where forever = $O(\log{N})$ time).  Adding a `1` on the low side 'bubbles' up all the way to the top.
 
 As it turns out, there is another way.  There are lots of ways, I suppose, but the one I'm showing you today is *very* good.
 
-As it turns out, you can fix this 'bubbling' up.  Instead of bubbling a `1` up to the next highest zero, which could be log N away, what if we just push the bubble up exactly one digit?  Wouldn't that be great?
+As it turns out, you can fix this 'bubbling' up.  Instead of bubbling a `1` up to the next highest zero, which could be $\log{N}$ away, what if we just push the bubble up exactly one digit?  Wouldn't that be great?
 
 ## Forever blowing bubbles
 
@@ -49,32 +54,32 @@ So when we add a `1` again, we can't put it to the right of the `2`, and we can'
   111120
 ~~~
 
-Would this work on standard binary numbers, where the *i*th digit represents *2<sup>i</sup>*?  Let's find out.  We know `111111` is equal to 63.  Is `111112` equal to 64?  32 + 16 + 8 + 4 + 2 + 2(1) = 64.  That seems to check out.  Is `111120` equal to 65?  32 + 16 + 8 + 4 + 2(2) = 64 again.  That's too bad.
+Would this work on standard binary numbers, where the *i*th digit represents $2^i$?  Let's find out.  We know `111111` is equal to 63.  Is `111112` equal to 64?  32 + 16 + 8 + 4 + 2 + 2(1) = 64.  That seems to check out.  Is `111120` equal to 65?  32 + 16 + 8 + 4 + 2(2) = 64 again.  That's too bad.
 
-So there's no way to make this work with standard binary weights of 2<sup>i</sup>.  Let's think about this, though: when would 2(something big) + 1 = 1(the next biggest thing)?
+So there's no way to make this work with standard binary weights of $2^i$.  Let's think about this, though: when would $2(\text{something\ big}) + 1 = (\text{the\ next\ biggest\ thing})$?
 
-~~~
-2X[n] + 1 = X[n+1]
-~~~
+$$
+2 X[n] + 1 = X[n + 1]
+$$
 
-I know `X[0]` has got to start at 1, so let's see where this goes inductively.
+I know $X[0]$ has got to start at 1, so let's see where this goes inductively.
 
-~~~
-X[0] = 1
-X[1] = 2X[0] + 1 = 2(1) + 1 = 3
-X[2] = 2X[1] + 1 = 2(3) + 1 = 7
+$$
+X[0] = 1\\
+X[1] = 2X[0] + 1 = 2(1) + 1 = 3\\
+X[2] = 2X[1] + 1 = 2(3) + 1 = 7\\
 X[3] = 2X[2] + 1 = 2(7) + 1 = 15
-~~~
+$$
 
 Curious!  A pattern emerges.  I love it when things work out.
 
-~~~
-X[n] = 2^(n+1) - 1
-~~~
+$$
+X[n] = 2^{n+1} - 1
+$$
 
 ## -1 to the rescue
 
-Instead of using weights of 2<sup>i</sup>, we should be able to use weights of 2<sup>i+1</sup> *- 1*.  Let's see how we things work out trying to add `1` to a long chain of `111111`s.
+Instead of using weights of $2^i$, we should be able to use weights of $2^{i+1} - 1$.  Let's see how we things work out trying to add `1` to a long chain of `111111`s.
 
 - `111111` is 1 + 3 + 7 + 15 + 31 + 63 = 120.  The change of weights drastically changes the value.  This is okay.
 - `111112` is 2(1) + 3 + 7 + 15 + 31 + 63 = 121.
@@ -85,11 +90,11 @@ Instead of using weights of 2<sup>i</sup>, we should be able to use weights of 2
 - `200000` is 2(63) = 126.
 - `1000000`, finally, is 127.
 
-Hopefully you can see how the bubbling indeed takes O(log N) time, but it's spread out across log N additions, each addition only pushing the low `2` up by one place value.  This means if we build trees of size 2<sup>i+1</sup>-1 instead of trees of size 2<sup>i</sup>, we can implement the 'subtraction' and 'addition' in O(1) time.  This means `cons` and `tail` can be O(1) operations.
+Hopefully you can see how the bubbling indeed takes $O(\log{N})$ time, but it's spread out across log N additions, each addition only pushing the low `2` up by one place value.  This means if we build trees of size $2^{i+1}-1$ instead of trees of size $2^i$, we can implement the 'subtraction' and 'addition' in $O(1)$ time.  This means `cons` and `tail` can be $O(1)$ operations.
 
 ## Trees of a different size
 
-One large question remains: *how do you make a tree of 2<sup>k-1</sup> elements*?  In the bforests, we used complete binary trees that each had 2<sup>k</sup> leaves.
+One large question remains: *how do you make a tree of $2^{k-1}$ elements*?  In the bforests, we used complete binary trees that each had $2^k$ leaves.
 
 You might remember we only stored values in the leaves, though.  What happens if we store values everywhere?
 
@@ -153,7 +158,7 @@ Intuitively, when we combine `2` arbitrarily large trees with a single `1`, ther
 /__big__\ /__big__\ 
 ~~~
 
-That ought to do it.  The `2` trees may be big, but it's the `1` that binds them.  What kind of ordering would this give us?  It seems like smallest elements will be at or near the top.  Let's try building up a tree from nothing to see exactly how the ordering comes out.
+That ought to do it.  The 2 trees may be big, but it's the 1 that binds them.  What kind of ordering would this give us?  It seems like smallest elements will be at or near the top.  Let's try building up a tree from nothing to see exactly how the ordering comes out.
 
 ## Build me up
 
@@ -211,9 +216,9 @@ If `tail` is just `cons` in reverse, I've covered `head`, `cons` & `tail`.  But 
 
 The reorganization of the trees means we have to search a bit differently.  We still have to scan our sparse list of trees until our index points inside some tree, but once we've got the right tree, how do we find a given index?
 
-If you look at the ordering, it's not like it's random.  A tree of size 7 has 0 at the root, 1..3 on the left, 4..6 on the right.  A tree of size 127 will have 0 at the root, 1..63 on the left, 64..126 on the right.  A tree of size 2<sup>i+1</sup>-1 will have 0 at the root, 1..2<sup>i</sup>-1 on the left, and 2<sup>i</sup>..2<sup>i+1</sup>-2 on the right.
+If you look at the ordering, it's not like it's random.  A tree of size 7 has $0$ at the root, $1...3$ on the left, $4...6$ on the right.  A tree of size 127 will have $0$ at the root, $1...63$ on the left, $64...126$ on the right.  A tree of size $2^{i+1}-1$ will have $0$ at the root, $1 ... 2^i-1$ on the left, and $2^{i}...2^{i+1}-2$ on the right.
 
-If you remember the bforests, each bit in the number basically boiled down to a left/right decision.  The same thing applies here: all we have to do is make the right decision at each level, subtract from the index accordingly, and not worry about what happens later.  Elements 2<sup>i</sup> and larger are on the right.  Everything smaller than 2<sup>i</sup> is on the left.  All I have to do to find an index in a tree of size 2<sup>i+1</sup>-1 is check if index >= 2<sup>i</sup>.  If it is, I go right and subtract 2<sup>i</sup> from index.  Otherwise I go left and subtract 1.  (If index is 0, I'm done.)
+If you remember the bforests, each bit in the number basically boiled down to a left/right decision.  The same thing applies here: all we have to do is make the right decision at each level, subtract from the index accordingly, and not worry about what happens later.  Elements $2^i$ and larger are on the right.  Everything smaller than $2^i$ is on the left.  All I have to do to find an index in a tree of size $2^{i+1}-1$ is check if index >= $2^i$.  If it is, I go right and subtract $2^i$ from index.  Otherwise I go left and subtract 1.  (If index is 0, I'm done.)
 
 ### A silly example
 
@@ -231,7 +236,7 @@ Sometimes I like to work through uncomfortably large examples.  So let's see if 
 1.  2 in 0..2: 2 >= 2: go right (-2)
 1.  0 in 0..0: we are done!
 
-We followed the rules and our index got to 0.  That's how you find index 300 in O(log 2047) time out of 2047 elements: go left left right left left right left left right right.
+We followed the rules and our index got to 0.  That's how you find index 300 in $O(\log{2047})$ time out of 2047 elements: go left left right left left right left left right right.
 
 ## Mapping & Iterating
 
